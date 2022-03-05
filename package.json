@@ -1,0 +1,25 @@
+{
+  "name": "sharp-lambda-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate to run sharp tasks on AWS Lambda",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawpixel-vincent/sharp-lambda-boilerplate.git"
+  },
+  "keywords": [
+    "sharp",
+    "lambda",
+    "cdk",
+    "aws"
+  ],
+  "author": "Vincent Baronnet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rawpixel-vincent/sharp-lambda-boilerplate/issues"
+  },
+  "homepage": "https://github.com/rawpixel-vincent/sharp-lambda-boilerplate#readme"
+}
