@@ -46,7 +46,14 @@ class SharpConverter extends Construct {
     const handlerFailed = createLambdaFunction(
       this,
       'handler-failed',
-      { ...lambdaBaseConfig, memory: 4096 },
+      {
+        ...lambdaBaseConfig,
+        environment: {
+          ...lambdaBaseConfig.environment,
+          memory: 4096,
+          VIPS_DISC_THRESHOLD: `4000m`,
+        },
+      },
       destinationBucket,
       sourceBucket
     );
