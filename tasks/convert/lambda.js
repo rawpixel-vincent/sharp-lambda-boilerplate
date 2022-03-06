@@ -27,13 +27,22 @@ module.exports.handler = async (event, context) => {
   for (let i = 0; i < records.length; i += 1) {
     const payload = records[i];
 
-    let error;
+    /** @type {import('./types').OutputMessage} */
+    const message = { data: payload.data, success: null };
     try {
-      await sharpConverter(s3Client, payload);
+      const { info, s3DestinationKey } = await sharpConverter(s3Client, payload);
+      message.s3OutputKey = s3DestinationKey;
+      message.info = info;
+      message.success = true;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      message.success = false;
+      message.error = error?.message || 'an unexpected error happened';
     }
-    // sqsClient.sendMessage();
+    await sqsClient.sendMessage({
+      QueueUrl: payload.outputSqsQueueUrl,
+      MessageBody: JSON.stringify(message),
+    });
   }
 
   return {};

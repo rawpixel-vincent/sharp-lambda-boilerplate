@@ -15,7 +15,20 @@
 /**
  * @typedef {Object} InputMessage
  * @property {string} s3InputKey
+ * @property {string} s3OutputKey
+ * @property {boolean} [preventOverride=true]
+ * @property {string} outputSqsQueueUrl
+ * @property {Object} data
  * @property {ConvertTaskOptions} convertOptions
+ */
+
+/**
+ * @typedef {Object} OutputMessage
+ * @property {string} [s3OutputKey]
+ * @property {import('sharp').OutputInfo} [info]
+ * @property {Object} data
+ * @property {boolean} success
+ * @property {string} [error]
  */
 
 module.exports = {};
