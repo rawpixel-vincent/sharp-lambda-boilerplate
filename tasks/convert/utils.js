@@ -1,7 +1,7 @@
 /**
  * @param {import('sharp')} sharp
  * @param {Buffer} buffer
- * @param {import('sharp').SharpOptions} [constructorOptions=null]
+ * @param {import('sharp').SharpOptions} [sharpOptions=null]
  * @param {import("sharp").ResizeOptions} [resizeOptions=null]
  * @param {boolean} [withMetadata=false]
  * @param {boolean} [rotateFromExifOrientation=true]
@@ -12,7 +12,7 @@
 module.exports.convertWithSharp = (
   sharp,
   buffer,
-  constructorOptions = null,
+  sharpOptions = null,
   resizeOptions = null,
   withMetadata = false,
   rotateFromExifOrientation = true,
@@ -23,7 +23,7 @@ module.exports.convertWithSharp = (
     const image = sharp(buffer, {
       limitInputPixels: 2147483648, // 2048mb
       failOnError: false,
-      ...constructorOptions,
+      ...sharpOptions,
     });
 
     if (withMetadata) {
