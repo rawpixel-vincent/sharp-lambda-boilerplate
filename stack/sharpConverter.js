@@ -25,6 +25,7 @@ class SharpConverter extends Construct {
         ENVIRONMENT: ENVIRONMENT,
         AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
         VIPS_DISC_THRESHOLD: `2000m`,
+        TMP: '/mnt/tmp',
       },
       timeout: Duration.minutes(5),
       filesystem: lambda.FileSystem.fromEfsAccessPoint(accessPoint, '/mnt/tmp'),
