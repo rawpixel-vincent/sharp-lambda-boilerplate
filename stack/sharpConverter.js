@@ -13,6 +13,7 @@ const { ENVIRONMENT } = process.env;
 class SharpConverter extends Construct {
   constructor(scope, id, vpc, securityGroup, accessPoint, sourceBucket, destinationBucket) {
     super(scope, id);
+    /** @typedef {import('@aws-cdk/aws-lambda').FunctionProps} */
     const lambdaBaseConfig = {
       memorySize: 2048,
       runtime: lambda.Runtime.NODEJS_14_X,
@@ -29,7 +30,25 @@ class SharpConverter extends Construct {
       },
       timeout: Duration.minutes(5),
       filesystem: lambda.FileSystem.fromEfsAccessPoint(accessPoint, '/mnt/tmp'),
-      code: lambda.AssetCode.fromAsset(path.join(__dirname, `../tasks/convert`)),
+      code: lambda.AssetCode.fromAsset(path.join(__dirname, `../tasks/convert`), {
+        bundling: {
+          image: lambda.Runtime.NODEJS_14_X.bundlingImage,
+          environment: {
+            npm_config_cache: '/tmp/npm_cache',
+            npm_config_update_notifier: 'false',
+            TMP: '/tmp',
+          },
+
+          command: [
+            'sh',
+            '-c',
+            [
+              'npm install --arch=arm64 --platform=linux --production',
+              'cp -r ./* /asset-output/',
+            ].join(' && '),
+          ],
+        },
+      }),
       vpc,
       vpcSubnets: { subnetType: SubnetType.PRIVATE_WITH_NAT },
       securityGroups: [securityGroup],
@@ -49,9 +68,9 @@ class SharpConverter extends Construct {
       'handler-failed',
       {
         ...lambdaBaseConfig,
+        memorySize: 4096,
         environment: {
           ...lambdaBaseConfig.environment,
-          memory: 4096,
           VIPS_DISC_THRESHOLD: `4000m`,
         },
       },

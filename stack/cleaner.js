@@ -13,7 +13,7 @@ class Cleaner extends Construct {
 
     const handler = new lambda.DockerImageFunction(this, 'handler', {
       ...lambdaSettings,
-      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, `../cleaner`)),
+      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, `../tasks/cleaner`)),
       vpc,
       vpcSubnets: { subnetType: SubnetType.PRIVATE_WITH_NAT },
       securityGroups: [securityGroup],
