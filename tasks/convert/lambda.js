@@ -8,6 +8,12 @@ if (typeof process.env.ENVIRONMENT !== 'string' || !process.env.ENVIRONMENT.leng
 if (typeof process.env.REGION !== 'string' || !process.env.REGION.length) {
   throw new Error(`Invalid REGION ${process.env.REGION}`);
 }
+if (typeof process.env.SOURCE_BUCKET !== 'string' || !process.env.SOURCE_BUCKET.length) {
+  throw new Error(`Invalid SOURCE_BUCKET ${process.env.SOURCE_BUCKET}`);
+}
+if (typeof process.env.DESTINATION_BUCKET !== 'string' || !process.env.DESTINATION_BUCKET.length) {
+  throw new Error(`Invalid DESTINATION_BUCKET ${process.env.DESTINATION_BUCKET}`);
+}
 
 const sqsClient = new AWS.SQS({ region: process.env.REGION });
 const s3Client = new AWS.S3({
