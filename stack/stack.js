@@ -27,10 +27,15 @@ class Stack extends cdk.Stack {
     const { accessPoint } = new FileSystem(this, 'fs1a', vpc);
 
     // Sharp Converter
-    new SharpConverter(this, `sharp-converter`, vpc, securityGroup, accessPoint, [
+    new SharpConverter(
+      this,
+      `sharp-converter`,
+      vpc,
+      securityGroup,
+      accessPoint,
       config.sourceBucket,
-      config.destinationBucket,
-    ]);
+      config.destinationBucket
+    );
 
     new Cleaner(this, `cleaner`, vpc, securityGroup, {
       memorySize: 512,
