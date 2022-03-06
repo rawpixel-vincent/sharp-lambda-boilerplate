@@ -1,0 +1,14 @@
+{
+  "name": "eps-converter",
+  "version": "1.0.0",
+  "description": "eps converter",
+  "main": "lambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "promisify-child-process": "^4.1.1"
+  }
+}
