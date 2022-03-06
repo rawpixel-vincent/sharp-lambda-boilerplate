@@ -1,25 +1,19 @@
 /**
  * @param {import('sharp')} sharp
  * @param {Buffer} buffer
- * @param {import('sharp').SharpOptions} [sharpOptions=null]
- * @param {import("sharp").ResizeOptions} [resizeOptions=null]
- * @param {boolean} [withMetadata=false]
- * @param {boolean} [rotateFromExifOrientation=true]
- * @param {import('sharp').AvailableFormatInfo} format
- * @param {import('sharp').OutputOptions | import('sharp').JpegOptions | import('sharp').PngOptions | import('sharp').WebpOptions | import('sharp').AvifOptions | import('sharp').HeifOptions | import('sharp').GifOptions | import('sharp').TiffOptions} [outputOptions=null]
- * @returns {Promise<{buffer:Buffer, info:import('sharp').OutputInfo}>}
+ * @param {import('./types').ConvertTaskOptions} convertOptions
  */
-module.exports.convertWithSharp = (
-  sharp,
-  buffer,
-  sharpOptions = null,
-  resizeOptions = null,
-  withMetadata = false,
-  rotateFromExifOrientation = true,
-  format = sharp.format.jpeg,
-  outputOptions = null
-) =>
+module.exports.convertWithSharp = (sharp, buffer, convertOptions) =>
   new Promise((resolve, reject) => {
+    const {
+      sharpOptions = null,
+      resizeOptions = null,
+      withMetadata = false,
+      rotateFromExifOrientation = true,
+      outputFormat = sharp.format.jpeg,
+      outputOptions = null,
+    } = convertOptions;
+
     const image = sharp(buffer, {
       limitInputPixels: 2147483648, // 2048mb
       failOnError: false,
@@ -38,7 +32,7 @@ module.exports.convertWithSharp = (
       image.rotate();
     }
 
-    image.toFormat(format, outputOptions);
+    image.toFormat(outputFormat, outputOptions);
 
     image.toBuffer((err, buffer, info) => {
       if (err) {
