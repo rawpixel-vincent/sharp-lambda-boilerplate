@@ -56,7 +56,7 @@ class SharpConverter extends Construct {
       retentionPeriod: Duration.days(7),
       visibilityTimeout: lambdaBaseConfig.timeout,
     });
-    const FailedQueue = new sqs.Queue(this, 'deadQueue', {
+    const FailedQueue = new sqs.Queue(this, 'failedQueue', {
       queueName: `sharp-convert-failed-${ENVIRONMENT}`,
       retentionPeriod: Duration.hours(12),
       visibilityTimeout: lambdaBaseConfig.timeout,
