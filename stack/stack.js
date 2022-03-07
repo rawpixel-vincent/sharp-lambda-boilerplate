@@ -27,21 +27,23 @@ class Stack extends cdk.Stack {
     const { accessPoint } = new FileSystem(this, 'fs1a', vpc);
 
     // Sharp Converter
-    new SharpConverter(
-      this,
-      `sharp-converter`,
-      vpc,
-      securityGroup,
-      accessPoint,
-      config.sourceBucket,
-      config.destinationBucket
-    );
+    if (config.tasks?.convert?.sourceBucket && config.tasks?.convert?.destinationBucket) {
+      new SharpConverter(
+        this,
+        `sharp-converter`,
+        vpc,
+        securityGroup,
+        accessPoint,
+        config.tasks.convert.sourceBucket,
+        config.tasks.convert.destinationBucket
+      );
+    }
 
     new Cleaner(this, `cleaner`, vpc, securityGroup, {
       memorySize: 512,
       architecture: lambda.Architecture.ARM_64,
       environment: {
-        REGION: 'ap-southeast-1',
+        REGION: Aws.REGION,
         ENVIRONMENT: ENVIRONMENT,
         AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       },

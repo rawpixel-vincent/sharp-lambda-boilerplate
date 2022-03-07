@@ -19,7 +19,7 @@ module.exports.convertWithSharp = (sharp, buffer, convertOptions) =>
     const image = sharp(buffer, {
       limitInputPixels: 2147483648, // 2048mb
       failOnError: false,
-      ...sharpOptions,
+      ...(sharpOptions || {}),
     });
 
     if (withMetadata) {
@@ -27,14 +27,14 @@ module.exports.convertWithSharp = (sharp, buffer, convertOptions) =>
     }
 
     if (resizeOptions) {
-      image.resize(resizeOptions);
+      image.resize(resizeOptions || {});
     }
 
     if (rotateFromExifOrientation) {
       image.rotate();
     }
 
-    image.toFormat(outputFormat, outputOptions);
+    image.toFormat(outputFormat, outputOptions || {});
 
     image.toBuffer((err, buffer, info) => {
       if (err) {

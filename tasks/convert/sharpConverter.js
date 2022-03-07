@@ -10,7 +10,7 @@ const { convertWithSharp, getS3ObjectBuffer, findNonExistentKey } = require('./u
  */
 module.exports.sharpConverter = async (
   s3Client,
-  { s3InputKey, s3OutputKey, preventOverride = false, convertOptions }
+  { s3InputKey, s3OutputKey, s3OutputACL = 'private', preventOverride = false, convertOptions }
 ) => {
   const { DESTINATION_BUCKET, SOURCE_BUCKET } = process.env;
   const inputBuffer = await getS3ObjectBuffer(s3Client, s3InputKey, SOURCE_BUCKET);
@@ -22,7 +22,7 @@ module.exports.sharpConverter = async (
     : s3OutputKey;
 
   await s3Client
-    .upload({ Body: buffer, Key: s3DestinationKey, Bucket: DESTINATION_BUCKET })
+    .upload({ Body: buffer, Key: s3DestinationKey, Bucket: DESTINATION_BUCKET, ACL: s3OutputACL })
     .promise();
 
   return { s3DestinationKey, info };

@@ -45,10 +45,12 @@ module.exports.handler = async (event, context) => {
       message.success = false;
       message.error = error?.message || 'an unexpected error happened';
     }
-    await sqsClient.sendMessage({
-      QueueUrl: payload.outputSqsQueueUrl,
-      MessageBody: JSON.stringify(message),
-    });
+    await sqsClient
+      .sendMessage({
+        QueueUrl: payload.outputSqsQueueUrl,
+        MessageBody: JSON.stringify(message),
+      })
+      .promise();
   }
 
   return {};
