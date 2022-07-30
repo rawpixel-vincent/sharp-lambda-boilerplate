@@ -2,8 +2,10 @@
   "name": "sharp-lambda-boilerplate",
   "version": "0.0.1",
   "description": "Boilerplate to run sharp tasks on AWS Lambda",
-  "main": " ",
+  "main": "bin/stack.js",
   "scripts": {
+    "deploy": "cdk deploy --require-approval never",
+    "destroy": "cdk destroy --require-approval never",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +23,18 @@
   "bugs": {
     "url": "https://github.com/rawpixel-vincent/sharp-lambda-boilerplate/issues"
   },
-  "homepage": "https://github.com/rawpixel-vincent/sharp-lambda-boilerplate#readme"
+  "homepage": "https://github.com/rawpixel-vincent/sharp-lambda-boilerplate#readme",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-ec2": "^1.147.0",
+    "@aws-cdk/aws-events-targets": "^1.147.0",
+    "@aws-cdk/aws-iam": "^1.147.0",
+    "@aws-cdk/aws-lambda": "^1.147.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.147.0",
+    "@aws-cdk/aws-sqs": "^1.147.0",
+    "@aws-cdk/core": "^1.147.0",
+    "cdk": "^2.15.0"
+  }
 }

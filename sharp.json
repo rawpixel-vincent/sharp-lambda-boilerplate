@@ -1,0 +1,12 @@
+{
+  "global": {},
+  "prod": {
+    "cidr": "90.1.0.0/16",
+    "tasks": {
+      "convert": {
+        "sourceBucket": "rawpixel-sharp-test",
+        "destinationBucket": "rawpixel-sharp-test"
+      }
+    }
+  }
+}
