@@ -1,6 +1,6 @@
 # sharp lambda boilerplate
 
-Boilerplate using AWD CDK to deploy and run sharp powered tasks on AWS Lambda
+Boilerplate using AWS CDK to deploy and run sharp powered tasks on AWS Lambda
 
 ## Goal
 
@@ -66,3 +66,4 @@ The output payload message type can be found [here](./tasks/convert/types.js)
 ### On the fly resized image api
 
 Task to serve resized image on the fly.
+
